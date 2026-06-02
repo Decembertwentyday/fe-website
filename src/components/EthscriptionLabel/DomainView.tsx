@@ -5,6 +5,12 @@
 
 import { Box } from '@mui/material';
 
+interface INftView {
+  collectionName: string;
+  domainDot?: boolean;
+  numberId?: React.ReactNode;
+}
+
 const DomainView: React.FC<INftView> = ({ collectionName, domainDot, numberId = null }) => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column', gap: '4px' }}>

@@ -36,11 +36,6 @@ import { Toaster } from 'react-hot-toast';
 // ↑ Toast 通知容器组件（显示"操作成功"/"失败"等提示框）
 // react-hot-toast：轻量级、美观的 Toast 库
 
-import { useEffect, useState } from 'react';
-// ↑ React 内置 Hook
-// useState：声明组件内部状态
-// useEffect：在组件渲染后执行副作用（如访问 DOM、订阅事件）
-
 import customTheme from '@/constants/theme';
 // ↑ 项目自定义的 MUI 主题（在 src/constants/theme.ts 中定义）
 
@@ -195,28 +190,10 @@ const queryClient = new QueryClient();
 // Providers 主组件
 // ─────────────────────────────────────────────────────────────
 export function Providers({ children }: { children: React.ReactNode }) {
-  const [mounted, setMounted] = useState(false);
-  // ↑ 用于解决"服务端渲染（SSR）水合（hydration）"问题
-  //
-  // 问题背景：
-  //   Next.js 默认会在服务器上预渲染 HTML（SSR）
-  //   但 Web3 相关代码（如 wagmi、RainbowKit）依赖浏览器 API（window、localStorage）
-  //   服务器上没有这些 API，预渲染时会出错
-  //
-  // 解决方案：
-  //   用 mounted 状态，确保 Web3 相关内容只在"客户端挂载后"渲染
-  //   {mounted && children}：mounted 为 false 时不渲染，避免 SSR 问题
-
   const globalStore = useSnapshot(GlobalStore.store);
   // ↑ 订阅全局状态
   // 这里主要是为了获取 globalStore.rainbowKitAuthStatus（登录状态）
   // 传给 RainbowKitAuthenticationProvider 的 status 属性
-
-  useEffect(() => {
-    setMounted(true);
-    // ↑ 当组件挂载到 DOM 后（即在浏览器中渲染完成），设置 mounted = true
-    // 空依赖数组 []：只在组件首次挂载时执行一次
-  }, []);
 
   return (
     // 第 1 层：react-query 数据缓存
@@ -265,17 +242,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
           >
             {/* 第 5 层（最内层）：RainbowKit 连接钱包 UI */}
             <RainbowKitProvider
-              chains={chains} // 支持哪些链
-              modalSize="wide" // 弹窗宽度：'wide' 比 'compact' 更宽，显示更多钱包
-              appInfo={AppInfo} // 应用信息（显示在弹窗顶部）
-              theme={myCustomTheme} // 使用自定义品牌主题
+              chains={chains}
+              modalSize="wide"
+              appInfo={AppInfo}
+              theme={myCustomTheme}
             >
-              {mounted && children}
-              {/*
-                ↑ 关键！只在 mounted=true（浏览器环境）时渲染 children
-                这解决了 SSR 期间访问 window/localStorage 导致的错误
-                代价：首屏会有一瞬间的空白（用 loading 骨架屏可优化）
-              */}
+              {children}
             </RainbowKitProvider>
           </RainbowKitAuthenticationProvider>
         </WagmiConfig>

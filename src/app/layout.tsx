@@ -72,14 +72,6 @@ export async function generateMetadata() {
     keywords: 'ethereum ethscriptions nft marketplace web3 etch defi dex nft did',
     // ↑ 关键词（现代搜索引擎不太依赖这个了，但仍然保留是惯例）
   } as Metadata;
-  // ↑ 'as Metadata' 是 TypeScript 类型断言，告诉编译器这个对象符合 Metadata 类型
-}
-
-// 声明支持的语言参数（与 next-intl 国际化配合）
-export function generateStaticParams() {
-  return [{ locale: 'en' }, { locale: 'zh' }];
-  // ↑ 声明这个 layout 支持 'en' 和 'zh' 两种语言
-  // next-intl 会根据这个来预生成相应的国际化路由
 }
 
 // ─────────────────────────────────────────────────────────────

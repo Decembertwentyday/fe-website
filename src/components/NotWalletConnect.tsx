@@ -3,10 +3,16 @@
 // ----------------------------------------------------------------------------
 // 与 WalletConnectButton 的区别：
 //   - WalletConnectButton：包裹子组件，未连接时替换渲染
-//   - NotWalletConnect：独立占位组件，显示警告图标 + 文字 + 连接按鈕
+//   - NotWalletConnect：独立占位组件，显示警告图标 + 文字 + 连接按钮
 // 使用场景：页面中复杂内容区域无法加载时（如资产列表、持仓列表）
 // ============================================================================
-import { Box, Button, Typography } from '@mui/material';: React.FC<INotWalletConnect> = () => {
+import { Box, Button, Typography } from '@mui/material';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
+import WarnSVG from '@/assets/icons/warn32.svg';
+
+interface INotWalletConnect {}
+
+const NotWalletConnect: React.FC<INotWalletConnect> = () => {
   const { openConnectModal } = useConnectModal();
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px' }}>

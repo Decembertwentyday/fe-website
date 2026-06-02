@@ -197,6 +197,7 @@ export default class MarketplaceService {
   async editListing(data: ListingRequest): Promise<ListingResponse> {
     // ↑ 修改挂单价格（卖家想改价格时调用，实质是撤销旧挂单并创建新挂单）
     return await this.apiClient.post<{}, ListingResponse>(`/markets/ethscriptions/edit/listing`, data);
+  }
 
   async marketChart(data: MarketChartRequest): Promise<MarketChartResponse> {
     // ↑ 获取市场价格图表数据（用于绘制集合历史价格折线图）

@@ -8,13 +8,6 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  experimental: {
-    turbo: {
-      rules: {
-        '*.svg': ['@svgr/webpack'],
-      },
-    },
-  },
   webpack(config, { isServer }) {
     config.module.rules.push({
       test: /\.svg$/i,

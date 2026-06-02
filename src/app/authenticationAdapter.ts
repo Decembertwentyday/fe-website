@@ -54,13 +54,20 @@ export const authenticationAdapter = createAuthenticationAdapter({
    * 目的：从服务器获取一个一次性随机字符串，防止重放攻击
    */
   getNonce: async () => {
-    // 从 wagmi 的本地存储中读取当前连接的钱包地址
-    // wagmi 把钱包连接状态存在 localStorage 的 'wagmi.store' 键下
-    const wagmiStore = JSON.parse(localStorage.getItem('wagmi.store') ?? '');
-    // ↑ JSON.parse：把 JSON 字符串解析为 JavaScript 对象
-    // wagmiStore.state.data.account：当前钱包地址
+    const raw = localStorage.getItem('wagmi.store');
+    if (!raw) return '';
 
-    const response = await services.did.getAuthNonce(wagmiStore.state.data.account);
+    let account = '';
+    try {
+      const wagmiStore = JSON.parse(raw);
+      account = wagmiStore?.state?.data?.account ?? '';
+    } catch {
+      return '';
+    }
+
+    if (!account) return '';
+
+    const response = await services.did.getAuthNonce(account);
     // ↑ 调用后端接口，传入钱包地址，获取该地址的登录 nonce
     // 后端会在数据库记录这个 nonce，用于后续验证
 

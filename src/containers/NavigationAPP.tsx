@@ -39,7 +39,6 @@ import {
   MenuItem,
   Typography,
 } from '@mui/material';
-import { useLocale } from 'next-intl';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import useMediaQuery from '@mui/material/useMediaQuery';

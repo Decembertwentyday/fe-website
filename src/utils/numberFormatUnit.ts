@@ -8,6 +8,8 @@
 // NaN 输入时返回 { value: '--', unit: '' }（安全降级）
 // ============================================================================
 import BigNumber from 'bignumber.js';
+
+export function numberFormatUnit(value: string | number) {
   let result: { value: string | number; unit: string } = { value, unit: '' };
 
   if (new BigNumber(value).isNaN()) {
@@ -16,11 +18,9 @@ import BigNumber from 'bignumber.js';
   }
 
   const k = 1000;
-
   const units = ['', 'K', 'M', 'B'];
 
   if (new BigNumber(value).gte(k)) {
-    const s = new BigNumber(value);
     const i = Math.floor(Math.log(new BigNumber(value).toNumber()) / Math.log(k));
 
     result = {
@@ -30,4 +30,4 @@ import BigNumber from 'bignumber.js';
   }
 
   return result;
-};
+}

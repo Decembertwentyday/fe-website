@@ -9,6 +9,10 @@
 
 import { useEffect, useState } from 'react';
 import { GridPaginationModel } from '@mui/x-data-grid';
+import { useImmer } from 'use-immer';
+import TableData from './TableData';
+
+import { GetTransfersInfoData, GetHoldersRequest } from '@/services/ethscriptions/types';
 import services from '@/services';
 
 const PAGE_START_INIT = 20;
