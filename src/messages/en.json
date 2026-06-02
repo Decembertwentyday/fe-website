@@ -1,0 +1,16 @@
+{
+  "header": {
+    "title": "Etch",
+    "connect": "Connect Wallet"
+  },
+  "search": {
+    "info": "Check out token  ethscriptions balance of the address.",
+    "intro": "Recognize all operations including DEPLOY, MINT and TRANSFER."
+  },
+  "marketplace": {
+    "title": "ETCH Marketplace"
+  },
+  "erc20s": {
+    "title": "The First Decentralized Fair Launchpad"
+  }
+}

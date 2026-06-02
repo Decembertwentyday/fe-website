@@ -1,0 +1,16 @@
+{
+  "header": {
+    "title": "Etch",
+    "connect": "连接钱包"
+  },
+  "search": {
+    "info": "输入钱包地址，查看 erc-20 ethscriptions 余额",
+    "intro": "识别所有操作，包括部署、铸造和转账。"
+  },
+  "marketplace": {
+    "title": "ETCH 市场"
+  },
+  "erc20s": {
+    "title": "The First Decentralized Fair Launchpad"
+  }
+}

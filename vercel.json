@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/api-goerli/:path*",
+      "destination": "http://3.233.81.38:3002/:path*"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://etch-market-api-lb-266956464.us-east-1.elb.amazonaws.com/:path*"
+    },
+    {
+      "source": "/api-release/:path*",
+      "destination": "https://api.orbitrum.io/:path*"
+    }
+  ]
+}
