@@ -1,3 +1,25 @@
+/**
+ * ==============================================================
+ * 文件：src/containers/Erc20sDeploy.tsx
+ * 作用：部署新的 ERC-20 铭文代币（Creator 工具）
+ *
+ * 业务流程：
+ *   1. 表单填写：name、symbol、total_supply、limit_per_mint、start_time 等
+ *   2. 选择协议版本（protocol）
+ *   3. react-hook-form 校验 → evmService.erc20sDeploy 发链上交易
+ *   4. toastResult 展示成功/失败
+ *
+ * 为什么用 react-hook-form + Controller？
+ *   MUI 组件不是原生 input，需要 Controller 桥接表单状态
+ *   DateTimePicker 同理（@mui/x-date-pickers）
+ *
+ * parseUnits：
+ *   用户输入的小数数量 → 链上 uint256（× 10^decimals）
+ *
+ * 依赖：useEthersSigner（wagmi → ethers Signer 转换，见 hooks 注释）
+ * ==============================================================
+ */
+
 'use client';
 
 import { Fragment, useEffect, useMemo, useState } from 'react';

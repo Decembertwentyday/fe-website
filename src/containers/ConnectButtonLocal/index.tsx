@@ -1,3 +1,26 @@
+/**
+ * ==============================================================
+ * 文件：src/containers/ConnectButtonLocal/index.tsx
+ * 作用：自定义样式的「连接钱包」按钮（基于 RainbowKit ConnectButton.Custom）
+ *
+ * 为什么不用 RainbowKit 默认按钮？
+ *   默认样式与 EtchMarket 品牌色（#D5E970 黄绿）不一致，
+ *   Custom 模式可以完全控制 UI，同时保留 RainbowKit 的钱包列表、链切换、SIWE 登录能力。
+ *
+ * 三种 UI 状态：
+ *   1. 未连接 → 黄绿「Connect Wallet」按钮 → 点击 openConnectModal
+ *   2. 错误网络 → 红色「Wrong network」→ 点击 openChainModal 切换链
+ *   3. 已连接且 SIWE 已认证 → 地址头像 + 下拉菜单（AccountMenu）
+ *
+ * ready 与 opacity:0 的技巧：
+ *   RainbowKit  hydration 前 mounted=false，先隐藏按钮避免「闪一下错误状态」
+ *   这是 RainbowKit 官方 Custom 按钮文档推荐的做法
+ *
+ * emojiAvatarForAddress：
+ *   根据地址哈希生成固定 emoji + 背景色，让用户快速识别自己的钱包（类似 MetaMask 头像）
+ * ==============================================================
+ */
+
 import { Box, Button, useMediaQuery } from '@mui/material';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -10,10 +33,10 @@ const ConnectButtonLocal = () => {
   return (
     <ConnectButton.Custom>
       {({ account, chain, openAccountModal, openChainModal, openConnectModal, authenticationStatus, mounted }) => {
-        // Note: If your app doesn't use authentication, you
-        // can remove all 'authenticationStatus' checks
+        // ready：RainbowKit 已完成客户端挂载，且 SIWE 认证状态不在 loading 中
         const ready = mounted && authenticationStatus !== 'loading';
         const emojiInfo = account?.address && emojiAvatarForAddress(account?.address);
+        // connected：钱包已连 + 链正确 + （若启用 SIWE）已完成 Sign-In
         const connected =
           ready && account && chain && (!authenticationStatus || authenticationStatus === 'authenticated');
         return (

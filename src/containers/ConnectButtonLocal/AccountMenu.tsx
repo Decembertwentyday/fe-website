@@ -1,3 +1,24 @@
+/**
+ * ==============================================================
+ * 文件：src/containers/ConnectButtonLocal/AccountMenu.tsx
+ * 作用：已连接钱包后的「账户下拉菜单」
+ *
+ * 菜单项：
+ *   - My Ethscriptions → /owner（个人铭文管理）
+ *   - My Assets        → /asset（代币/资金总览）
+ *   - Copy Address     → 复制钱包地址到剪贴板（useCopy Hook）
+ *   - Logout           → disconnect() 断开 wagmi 连接
+ *
+ * 响应式行为：
+ *   桌面（>750px）：点击头像展开 MUI Menu 下拉
+ *   移动（≤750px）：ConnectButtonLocal 里直接 openAccountModal（RainbowKit 自带抽屉）
+ *   原因：小屏下拉菜单容易被 Header 遮挡，RainbowKit 移动端 UI 更友好
+ *
+ * children 模式：
+ *   用 React.cloneElement 的替代方案——外层包 Box onClick，内层由父组件传入触发器 UI
+ * ==============================================================
+ */
+
 'use client';
 
 import { ContentCopy, Logout } from '@mui/icons-material';

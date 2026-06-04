@@ -1,3 +1,24 @@
+/**
+ * ==============================================================
+ * 文件：src/containers/TransactionList/index.tsx
+ * 作用：平台最新链上交易列表（分页 + 筛选）
+ *
+ * 功能：
+ *   1. FilterSelect：Show All / Only Sale（只看市场成交）
+ *   2. MUI DataGrid 表格（TableData 子组件）
+ *   3. 分页：page.index + page.size 传给后端
+ *
+ * useImmer 为什么用在这里？
+ *   filterRequest 有多层字段（page.size、onlySale），
+ *   immer 允许 draft.state['page.index'] = 1 这种「可变写法」，
+ *   实际仍产生不可变新对象，触发 React 重新渲染。
+ *
+ * 加载策略：
+ *   请求前先清空 transactions 数组 → 用户感知到「正在刷新」
+ *   isLoading 防重复请求（快速连点分页不会发双份请求）
+ * ==============================================================
+ */
+
 import { useEffect, useState } from 'react';
 import { Box, FormControlLabel, Switch, Typography } from '@mui/material';
 import { GridPaginationModel } from '@mui/x-data-grid';

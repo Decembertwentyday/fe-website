@@ -1,3 +1,30 @@
+/**
+ * ==============================================================
+ * 文件：src/app/market/layout.tsx
+ * 作用：市场模块（/market/*）的共享布局
+ *
+ * Next.js Layout 特性：
+ *   访问 /market、/market/nft、/market/token 时，本 layout 不会卸载，
+ *   只有 {children} 部分切换 → CategoryTag 选中态、Footer 保持不动
+ *
+ * 布局结构：
+ *   ┌─────────────────────────────────────┐
+ *   │ CategoryTag（Token/Domain/NFT Tab） │  My Ethscriptions 按钮
+ *   ├─────────────────────────────────────┤
+ *   │ {children}  ← page.tsx 内容          │
+ *   ├─────────────────────────────────────┤
+ *   │ Footer                               │
+ *   └─────────────────────────────────────┘
+ *
+ * OG Pass 徽章：
+ *   globalStore.isOgPass 由 providersMiddleware 在连接钱包后查询 DID 接口设置
+ *   早期用户（OG）在 market 页显示专属小图标，增强社区认同感
+ *
+ * 移动端 CategoryTag → LocalSelect：
+ *   Tab 横向排列在小屏放不下，改用下拉选择 category，onChange 跳转 /market?category=xxx
+ * ==============================================================
+ */
+
 'use client';
 
 import Footer from '@/containers/Footer';
@@ -13,12 +40,6 @@ import OGPassSmallSVG from '@/assets/icons/og_pass_small.svg';
 import CategoryTag from './CategoryTag';
 import Link from 'next/link';
 import LocalSelect from '@/components/LocalSelect';
-
-// export const metadata: Metadata = {
-//   title: 'EtchMarket - Home',
-//   description: 'EtchMarket, The First Community-driven Ethsciptions Indexer、Marketplace、Dex',
-//   keywords: 'ethereum ethscriptions nft marketplace web3 etch defi dex nft did',
-// };
 
 export default function MarketLayout({ children }: { children: React.ReactNode }) {
   const globalStore = useSnapshot(GlobalStore.store);

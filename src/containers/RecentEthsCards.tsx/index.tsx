@@ -1,3 +1,24 @@
+/**
+ * ==============================================================
+ * 文件：src/containers/RecentEthsCards.tsx/index.tsx
+ * 作用：最新铭文卡片瀑布流（首页 / ethscriptions 页共用）
+ *
+ * 核心能力：
+ *   1. InfiniteScroll — 滚到底自动加载下一页（page.index++）
+ *   2. FilterSelect — 按 category 筛选（NFT / Token / Domain）
+ *   3. EthsCard — 单张铭文卡片，点击跳转详情
+ *
+ * useImmer：
+ *   list 和 filterRequest 用 immer 管理，append 新页数据时：
+ *   setList(draft => { draft.ethscriptions.push(...newItems) })
+ *
+ * URL_CONFIG[chainId]：
+ *   卡片上的外链（ethscriptions.com 浏览器）随当前钱包链切换
+ *
+ * 刷新按钮：重置 page.index=1 重新拉第一页
+ * ==============================================================
+ */
+
 'use client';
 
 import { useState, useEffect } from 'react';

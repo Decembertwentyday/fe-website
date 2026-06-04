@@ -1,3 +1,18 @@
+/**
+ * ==============================================================
+ * 文件：src/containers/MarketPlaceChart/index.tsx
+ * 作用：市场集合详情页的「价格图表」弹窗/面板
+ *
+ * 展示内容：
+ *   - 集合 floor price、24h 涨跌（MarketUp/Down SVG）
+ *   - LineChart 历史价格曲线（services.marketplace 图表 API）
+ *   - InvestInfo 关键指标（volume、sales 等）
+ *
+ * 入参 category + collectionName：
+ *   从 /market/nft|token|domain 详情页传入，用于请求对应集合的 chart 数据
+ * ==============================================================
+ */
+
 import {
   Box,
   Dialog,

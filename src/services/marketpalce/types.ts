@@ -1,3 +1,24 @@
+/**
+ * ==============================================================
+ * 文件：src/services/marketpalce/types.ts
+ * 作用：交易市场（Marketplace）相关的 TypeScript 类型定义
+ *
+ * 注意文件名拼写 marketpalce（历史 typo），全项目统一此路径，勿改以免破坏 import
+ *
+ * 类型分组速查：
+ *   - categoryType          — 四大分类：token | domain | nft | image | text
+ *   - GetMarketListedRequest — 市场挂单列表查询参数
+ *   - GetMyEthscriptionsRequest — 个人铭文列表查询
+ *   - Order / ListingRequest — 链上订单结构（与合约 ABI 字段对应）
+ *   - GetCollection*        — 集合详情、Owner 面板、图表数据
+ *
+ * 为什么 Request 字段用 'page.size' 带点号？
+ *   后端 API 约定嵌套 query 参数格式，getQueryParams 原样序列化
+ *
+ * 阅读建议：配合 constants/index.ts 的 CATEGORY_KEY_ENUM 一起看
+ * ==============================================================
+ */
+
 import { BasePage, IResponse, SocialPlatform } from '../types';
 
 export type categoryType = 'token' | 'domain' | 'nft' | 'image' | 'text';

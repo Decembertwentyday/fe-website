@@ -1,3 +1,23 @@
+/**
+ * ==============================================================
+ * 文件：src/containers/TransactionOverview.tsx
+ * 作用：「最新交易」页顶部的数据大盘（4 个统计卡片）
+ *
+ * 展示指标：
+ *   - 24h 成交量 / 总成交量
+ *   - 24h 销售额 / 总销售额
+ *
+ * 数据流：
+ *   mount → services.ethscriptions.getTransactionStats()
+ *         → setStats → CSS Grid 渲染 4 张卡片
+ *
+ * getTruncate：大数格式化（千分位 + 截断小数），避免 1234567.890000 难看
+ * ETHSVG：ETH 图标，成交量字段旁展示
+ *
+ * 注意：import { stat } from 'fs' 是误引入的 Node 模块，浏览器端无效，可安全删除
+ * ==============================================================
+ */
+
 import services from '@/services';
 import { GetTransactionStats } from '@/services/ethscriptions/types';
 import { Box, Typography } from '@mui/material';
@@ -5,7 +25,6 @@ import { useEffect, useState } from 'react';
 import _ from 'lodash-es';
 import getTruncate from '@/utils/getTruncate';
 import ETHSVG from '@/assets/icons/eth16.svg';
-import { stat } from 'fs';
 
 const TransactionOverview = () => {
   const [stats, setStats] = useState<GetTransactionStats>({

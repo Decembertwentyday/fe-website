@@ -1,3 +1,20 @@
+/**
+ * ==============================================================
+ * 文件：src/services/ethscriptions/types.ts
+ * 作用：铭文索引（Ethscriptions）模块的 TypeScript 类型定义
+ *
+ * 与 marketplace/types 的分工：
+ *   - 本文件：铭文本身（铸造、转账、搜索、ERC20 铭文、交易统计）
+ *   - marketplace/types：交易市场（挂单、购买、集合 floor price）
+ *
+ * 常见类型：
+ *   GetRecentEthsRequest/List  — 最新铭文卡片流
+ *   GetRecentTransactions*     — 全站交易列表
+ *   GetErc20*                  — ERC-20 铭文代币查询
+ *   EthscriptionItem           — 单条铭文的核心字段（id、content、owner…）
+ * ==============================================================
+ */
+
 import { categoryType } from '../marketpalce/types';
 import { BasePage, IResponse } from '../types';
 
